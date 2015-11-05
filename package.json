@@ -1,0 +1,40 @@
+{
+  "name": "cultus",
+  "version": "0.1.0",
+  "description": "An alternative menubar calendar for OS X",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^5.8.33",
+    "babel-loader": "^5.3.3",
+    "babel-runtime": "^5.8.29",
+    "css-loader": "^0.21.0",
+    "jade": "^1.11.0",
+    "jade-loader": "^0.8.0",
+    "postcss-loader": "^0.7.0",
+    "style-loader": "^0.13.0",
+    "vue": "^1.0.4",
+    "vue-hot-reload-api": "^1.2.1",
+    "vue-html-loader": "^1.0.0",
+    "vue-loader": "^6.0.4",
+    "webpack": "^1.12.2",
+    "menubar": "^2.3.0",
+    "postcss-nested": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djyde/Cultus.git"
+  },
+  "keywords": [
+    "calendar"
+  ],
+  "author": "Randy Lu <randypriv@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djyde/Cultus/issues"
+  },
+  "homepage": "https://github.com/djyde/Cultus#readme"
+}
