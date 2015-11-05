@@ -30,7 +30,7 @@
     #head{
       width: 100%;
       height: 18%;
-      background-color: #75ABDD;
+      background: linear-gradient(to bottom, #7BBFE0, #75ABDD);
 
       #month{
         text-align: center;
