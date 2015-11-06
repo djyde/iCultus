@@ -2,9 +2,15 @@
 
 An alternative menubar calendar for OS X
 
+http://djyde.github.io/iCultus/
+
 # Screenshot
 
 ![](http://ww4.sinaimg.cn/large/62580dd9gw1exroxdo8kcj207w083jrx.jpg)
+
+# Install
+
+[Download](https://github.com/djyde/iCultus/releases)
 
 # Build
 
