@@ -4,3 +4,4 @@ build
 cache
 dist
 release
+*.log
