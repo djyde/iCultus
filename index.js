@@ -5,10 +5,10 @@ const app = require('app')
 // tray.setTitle('test')
 
 const mb = new menubar({
-  // 'always-on-top': true,
+  'always-on-top': true,
   // resizable: false,
   width: 250,
-  height: 250,
+  height: 253,
   preloadWindow: true,
   icon: path.join(__dirname, './app/assets/images/trayIcon.png')
 })

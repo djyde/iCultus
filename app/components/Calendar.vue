@@ -11,10 +11,10 @@
       
     #week
       .grid(v-for="i in 7") {{ weeks[i] }}
-    #day
-      .grid.square.last(v-for="i in lastMonthRestDays") {{ lastMonthLastDayNumber - ( lastMonthRestDays - 1 - i) }}
-      .grid.square(v-for="i in daysOfMonth", :class="{ current: day === i + 1 && isCurrentDay }") {{ i + 1 }}
-      .grid.square.next(v-for="i in nextMonthRestDays") {{ i + 1 }}
+  #day
+    .grid.square.last(v-for="i in lastMonthRestDays") {{ lastMonthLastDayNumber - ( lastMonthRestDays - 1 - i) }}
+    .grid.square(v-for="i in daysOfMonth", :class="{ current: day === i + 1 && isCurrentDay }") {{ i + 1 }}
+    .grid.square.next(v-for="i in nextMonthRestDays") {{ i + 1 }}
 </template>
 
 <script>
@@ -23,13 +23,16 @@
   let mb = window.remote.require('./').mb
   let shell = window.remote.require('shell')
   let app = window.remote.require('app')
+  
+  // moment.locale(app.getLocale())
+  moment.locale('en-US')
 
   export default {
     data(){
       return {
         today: moment().format('YYYY-MM-DD'),
         // weeks: ['日', '一', '二', '三', '四', '五', '六']
-        weeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        weeks: moment.weekdaysShort()
       }
     },
 
@@ -81,7 +84,6 @@
       },
 
       isCurrentDay(){
-        console.log(moment().format('YYYY-MM-DD'), moment(this.today).format('YYYY-MM-DD'))
         return moment().format('YYYY-MM-DD') === moment(this.today).format('YYYY-MM-DD')
       }
     },
@@ -110,7 +112,6 @@
     },
 
     ready(){
-      moment.locale(app.getLocale())
       this.initTray()
       mb.on('show', () => {
         this.backToToday()
@@ -165,11 +166,11 @@
       width: 100%;
       height: 55px;
       background: linear-gradient(to bottom, #7BBFE0, #75ABDD);
-
+      position: relative;
       #month{
         text-align: center;
         color: #fff;
-        padding-top: .8em;
+        padding-top: .8rem;
         #date{
           font-size: 1.1em;
         }
@@ -196,26 +197,29 @@
         }
 
         #date{
+          font-size: 1.1em;
           display: inline-block;
           cursor: pointer;
         }
       }
 
       #week{
-        margin-top: .6em;
+        position: absolute;
         width: 100%;
-        padding-top: .45em;
-        margin-bottom: .2em;
-        /*padding-bottom: .45em;*/
+        /*padding-top: 4px;*/
+        /*padding-bottom: 3px;*/
+        bottom: .2em;
         font-size: .75em;
         color: #fff;
       }
 
-      #day{
+      
+    }
+
+    #day{
         box-sizing: border-box;
         padding: .2em;
         padding-bottom: 0;
       }
-    }
   }
 </style>
