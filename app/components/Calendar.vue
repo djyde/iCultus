@@ -8,8 +8,6 @@
 </template>
 
 <script>
-  import 'purecss/build/grids-min.css'
-
   export default {
     data(){
       return {
