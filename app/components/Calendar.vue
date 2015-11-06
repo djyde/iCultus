@@ -1,18 +1,47 @@
 <template lang="jade">
 #calendar
   #head
-    #month 十一月 2015
+    #month {{ month }} {{ year }}
     #week
       .grid(v-for="i in 7") {{ weeks[i] }}
-
+    #day
 </template>
 
 <script>
+  import moment from 'moment'
+
+  let mb = window.remote.require('./').mb
+
   export default {
     data(){
       return {
+        month: moment().format('MMM'),
+        year: moment().format('YYYY'),
         weeks: ['日', '一', '二', '三', '四', '五', '六']
       }
+    },
+
+    computed: {
+      fullTime(){
+        return moment().format(' ddd HH:mm')
+      }
+    },
+
+    methods: {
+      initDate(){
+        this.year = moment().format('YYYY')
+        this.month = moment().format('MMM')
+        mb.tray.setTitle(this.fullTime)
+      }
+    },
+
+    ready(){
+      this.initDate()
+      setInterval( () => {
+        mb.tray.setTitle(moment().format(' ddd HH:mm'))
+      }, 10000)
+
+      // mb.on('show', () => this.initDate())
     }
   }
 </script>

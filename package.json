@@ -12,6 +12,7 @@
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "menubar": "^2.3.0",
+    "moment": "^2.10.6",
     "normalize.css": "^3.0.3",
     "postcss-loader": "^0.7.0",
     "postcss-nested": "^1.0.0",
