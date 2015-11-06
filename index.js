@@ -6,7 +6,7 @@ const app = require('app')
 
 const mb = new menubar({
   // 'always-on-top': true,
-  resizable: false,
+  // resizable: false,
   width: 250,
   height: 250,
   preloadWindow: true,
@@ -20,7 +20,7 @@ mb.on('ready', () => {
 
 mb.on('after-create-window', () => {
   if (process.env.NODE_ENV === 'dev') {
-    // mb.window.openDevTools()
+    mb.window.openDevTools()
     mb.window.loadUrl('http://localhost:8080/')
   }
 })

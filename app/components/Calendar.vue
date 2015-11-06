@@ -13,7 +13,7 @@
       .grid(v-for="i in 7") {{ weeks[i] }}
     #day
       .grid.square.last(v-for="i in lastMonthRestDays") {{ lastMonthLastDayNumber - ( lastMonthRestDays - 1 - i) }}
-      .grid.square(v-for="i in daysOfMonth", :class="{ current: day === i && isCurrentDay }") {{ i + 1 }}
+      .grid.square(v-for="i in daysOfMonth", :class="{ current: day === i + 1 && isCurrentDay }") {{ i + 1 }}
       .grid.square.next(v-for="i in nextMonthRestDays") {{ i + 1 }}
 </template>
 
@@ -22,6 +22,7 @@
 
   let mb = window.remote.require('./').mb
   let shell = window.remote.require('shell')
+  let app = window.remote.require('app')
 
   export default {
     data(){
@@ -80,6 +81,7 @@
       },
 
       isCurrentDay(){
+        console.log(moment().format('YYYY-MM-DD'), moment(this.today).format('YYYY-MM-DD'))
         return moment().format('YYYY-MM-DD') === moment(this.today).format('YYYY-MM-DD')
       }
     },
@@ -108,6 +110,7 @@
     },
 
     ready(){
+      moment.locale(app.getLocale())
       this.initTray()
       mb.on('show', () => {
         this.backToToday()
