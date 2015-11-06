@@ -1,5 +1,6 @@
 const menubar = require('menubar')
 const path = require('path')
+const app = require('app')
 
 // tray.setTitle('test')
 
@@ -9,11 +10,13 @@ const mb = new menubar({
   width: 250,
   height: 250,
   preloadWindow: true,
-  icon: path.join(__dirname, './app/assets/images/app.png')
+  icon: path.join(__dirname, './app/assets/images/trayIcon.png')
 })
 
 mb.on('ready', () => {
-  // mb.tray.setTitle('test')
+  mb.tray.setToolTip(app.getName())
+  mb.tray.setHighlightMode(false)
+
 })
 
 mb.on('after-create-window', () => {

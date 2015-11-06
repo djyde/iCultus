@@ -13,6 +13,10 @@ module.exports = {
         loader: 'babel'
       },
       {
+        test: /\.png$/,
+        loader: 'url?limit=8192'
+      },
+      {
         test: /\.css$/,
         loader: 'style!css'
       },

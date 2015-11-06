@@ -3,6 +3,8 @@
   #head
     #month
       #date(@click="backToToday") {{ formatMonth }} {{ year }}
+      #calendar-app
+        img(src="../assets/images/calendar.png", @click="launchCalendar")
       #action
         .action(href="javascript:void(0)", @click="prev", style="transform: rotate(180deg)") ➔
         .action(href="javascript:void(0)", @click="next") ➔
@@ -19,6 +21,7 @@
   import moment from 'moment'
 
   let mb = window.remote.require('./').mb
+  let shell = window.remote.require('shell')
 
   export default {
     data(){
@@ -31,7 +34,7 @@
 
     computed: {
       fullTime(){
-        return moment(this.today).format(' ddd HH:mm')
+        return moment(this.today).format('ddd HH:mm')
       },
 
       formatMonth(){
@@ -83,7 +86,7 @@
 
     methods: {
       initTray(){
-        mb.tray.setTitle(moment().format(' ddd HH:mm'))
+        mb.tray.setTitle(moment().format('ddd HH:mm'))
       },
 
       prev(){
@@ -96,6 +99,10 @@
 
       backToToday(){
         this.today = moment().format('YYYY-MM-DD')
+      },
+
+      launchCalendar(){
+        shell.openItem('/Applications/Calendar.app')
       }
 
     },
@@ -103,7 +110,7 @@
     ready(){
       this.initTray()
       setInterval( () => {
-        mb.tray.setTitle(moment().format(' ddd HH:mm'))
+        mb.tray.setTitle(moment().format('ddd HH:mm'))
       }, 10000)
     }
   }
@@ -159,6 +166,12 @@
         padding-top: .8em;
         #date{
           font-size: 1.1em;
+        }
+
+        #calendar-app{
+          position: absolute;
+          top: .8em;
+          left: .8em;
         }
 
         #action{
