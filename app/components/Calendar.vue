@@ -1,7 +1,12 @@
 <template lang="jade">
 #calendar
   #head
-    #month {{ formatMonth }} {{ year }}
+    #month
+      #display {{ formatMonth }} {{ year }}
+      #action
+        a.action(href="javascript:void(0)", @click="prev") <  
+        a.action(href="javascript:void(0)", @click="next") > 
+      
     #week
       .grid(v-for="i in 7") {{ weeks[i] }}
     #day
@@ -18,49 +23,81 @@
   export default {
     data(){
       return {
-        formatMonth: moment().format('MMM'),
-        month: moment().month(),
-        year: moment().year(),
-        weeks: ['日', '一', '二', '三', '四', '五', '六'],
-        lastMonth: 0,
-        firstDayWeekNumber: moment().startOf('month').day(),
-        lastMonthLastDayNumber: 0,
-        lastMonthRestDays: 0,
-        daysOfMonth: moment().endOf('month').date(),
+        today: moment().format('YYYY-MM-DD'),
+        weeks: ['日', '一', '二', '三', '四', '五', '六']      
+      }
+    },
+
+    watch: {
+      today(val){
+        console.log(val)
       }
     },
 
     computed: {
       fullTime(){
-        return moment().format(' ddd HH:mm')
+        return moment(this.today).format(' ddd HH:mm')
       },
 
       nextMonthRestDays(){
         return 42 - (this.lastMonthRestDays + this.daysOfMonth)
+      },
+
+      formatMonth(){
+        return moment(this.today).format('MMM')
+      },
+
+      month(){
+        return moment(this.today).month()
+      },
+
+      year(){
+        return moment(this.today).year()
+      },
+
+      lastMonth(){
+        return this.lastMonth = moment(this.today).get('month') - 1
+      },
+
+      firstDayWeekNumber(){
+        return moment(this.today).startOf('month').day()
+      },
+
+      lastMonthLastDayNumber(){
+        let todayInstance = moment(moment(this.today))
+        return todayInstance.month(this.lastMonth).endOf('month').date()
+      },
+
+      lastMonthRestDays(){
+        let todayInstance = moment(moment(this.today))
+        return todayInstance.month(this.lastMonth).endOf('month').day() === 6 ? 0 : todayInstance.month(this.lastMonth).endOf('month').day() + 1
+      },
+
+      daysOfMonth(){
+        return moment(this.today).endOf('month').date()
       }
     },
 
     methods: {
-      initDate(){
-        this.year = moment().format('YYYY')
-        this.month = moment().format('MMM')
-        mb.tray.setTitle(this.fullTime)
+      initTray(){
+        mb.tray.setTitle(moment().format(' ddd HH:mm'))
       },
 
+      prev(){
+        this.today = moment(this.today).subtract(1, 'month')
+      },
+
+      next(){
+        this.today = moment(this.today).add(1, 'month')
+      }
 
     },
 
     ready(){
-      this.lastMonth = moment().get('month') - 1;
-      this.lastMonthLastDayNumber =  moment().month(this.lastMonth).endOf('month').date()
-      this.lastMonthRestDays = moment().month(this.lastMonth).endOf('month').day() === 6 ? 0 : moment().month(this.lastMonth).endOf('month').day() + 1
-      // console.log(moment().month(lastMonth).endOf('month').date())
-      this.initDate()
+      this.initTray()
       setInterval( () => {
         mb.tray.setTitle(moment().format(' ddd HH:mm'))
       }, 10000)
-
-      // mb.on('show', () => this.initDate())
     }
   }
 </script>
@@ -106,6 +143,12 @@
         color: #fff;
         padding-top: .5em;
         padding-bottom: .5aem;
+
+        #action{
+          position: absolute;
+          top: .5em;
+          right: .5em;
+        }
       }
 
       #week{
