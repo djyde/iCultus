@@ -26,7 +26,7 @@
     "webpack": "^1.12.2"
   },
   "scripts": {
-    "dev": "webpack-dev-server --hot --inline",
+    "dev": "webpack-dev-server --hot --inline --quiet",
     "test": "echo \"Error: no test specified\" && exit 1",
     "app": "export NODE_ENV=dev && electron ."
   },

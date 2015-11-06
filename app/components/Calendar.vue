@@ -2,7 +2,7 @@
 #calendar
   #head
     #month
-      #display {{ formatMonth }} {{ year }}
+      #date(@click="backToToday") {{ formatMonth }} {{ year }}
       #action
         a.action(href="javascript:void(0)", @click="prev") <  
         a.action(href="javascript:void(0)", @click="next") > 
@@ -11,7 +11,7 @@
       .grid(v-for="i in 7") {{ weeks[i] }}
     #day
       .grid.square.last(v-for="i in lastMonthRestDays") {{ lastMonthLastDayNumber - ( lastMonthRestDays - 1 - i) }}
-      .grid.square(v-for="i in daysOfMonth") {{ i + 1 }}
+      .grid.square(v-for="i in daysOfMonth", :class="{ current: day === i && isCurrentDay }") {{ i + 1 }}
       .grid.square.next(v-for="i in nextMonthRestDays") {{ i + 1 }}
 </template>
 
@@ -28,23 +28,17 @@
       }
     },
 
-    watch: {
-      today(val){
-        console.log(val)
-      }
-    },
-
     computed: {
       fullTime(){
         return moment(this.today).format(' ddd HH:mm')
       },
 
-      nextMonthRestDays(){
-        return 42 - (this.lastMonthRestDays + this.daysOfMonth)
-      },
-
       formatMonth(){
         return moment(this.today).format('MMM')
+      },
+
+      day(){
+        return moment(this.today).date()
       },
 
       month(){
@@ -75,6 +69,14 @@
 
       daysOfMonth(){
         return moment(this.today).endOf('month').date()
+      },
+
+      nextMonthRestDays(){
+        return 42 - (this.lastMonthRestDays + this.daysOfMonth)
+      },
+
+      isCurrentDay(){
+        return moment().format('YYYY-MM-DD') === moment(this.today).format('YYYY-MM-DD')
       }
     },
 
@@ -89,6 +91,10 @@
 
       next(){
         this.today = moment(this.today).add(1, 'month')
+      },
+
+      backToToday(){
+        this.today = moment().format('YYYY-MM-DD')
       }
 
     },
@@ -104,18 +110,20 @@
 
 <style scoped>
   #calendar{
+    -webkit-user-select: none;
+    cursor: default;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-
     .grid{
       display: inline-block;
       width: 14.28%;
       text-align: center;
       
       &.square{
+        border-radius: 2px;
         font-weight: lighter;
         color: #777;
         font-size: .9em;
@@ -129,6 +137,11 @@
 
         &.next{
           background-color: #F5F5F5;
+        }
+
+        &.current{
+          background: linear-gradient(to bottom, #7BBFE0, #75ABDD);
+          color: #fff;
         }
       }
     }
@@ -149,6 +162,11 @@
           top: .5em;
           right: .5em;
         }
+
+        #date{
+          display: inline-block;
+          cursor: pointer;
+        }
       }
 
       #week{
@@ -161,7 +179,9 @@
       }
 
       #day{
-        margin-top: .1em;
+        box-sizing: border-box;
+        padding: .2em;
+        padding-bottom: 0;
       }
     }
   }
