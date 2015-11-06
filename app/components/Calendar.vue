@@ -109,6 +109,9 @@
 
     ready(){
       this.initTray()
+      mb.on('show', () => {
+        this.backToToday()
+      })
       setInterval( () => {
         mb.tray.setTitle(moment().format('ddd HH:mm'))
       }, 10000)

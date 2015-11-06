@@ -10,6 +10,8 @@
     "babel-runtime": "^5.8.29",
     "css-loader": "^0.21.0",
     "file-loader": "^0.8.4",
+    "gulp": "^3.9.0",
+    "gulp-electron": "0.0.9",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "menubar": "^2.3.0",
@@ -29,7 +31,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --hot --inline --quiet",
-    "app": "export NODE_ENV=dev && electron ."
+    "app": "export NODE_ENV=dev && electron .",
+    "release": "webpack -p --progress && gulp electron"
   },
   "repository": {
     "type": "git",

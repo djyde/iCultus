@@ -20,7 +20,7 @@ mb.on('ready', () => {
 
 mb.on('after-create-window', () => {
   if (process.env.NODE_ENV === 'dev') {
-    mb.window.openDevTools()
+    // mb.window.openDevTools()
     mb.window.loadUrl('http://localhost:8080/')
   }
 })
