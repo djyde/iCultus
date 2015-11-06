@@ -24,8 +24,7 @@
   let shell = window.remote.require('shell')
   let app = window.remote.require('app')
   
-  // moment.locale(app.getLocale())
-  moment.locale('en-US')
+  moment.locale(app.getLocale())
 
   export default {
     data(){

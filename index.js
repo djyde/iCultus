@@ -5,8 +5,8 @@ const app = require('app')
 // tray.setTitle('test')
 
 const mb = new menubar({
-  'always-on-top': true,
-  // resizable: false,
+  // 'always-on-top': true,
+  resizable: false,
   width: 250,
   height: 253,
   preloadWindow: true,
