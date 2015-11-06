@@ -7,7 +7,7 @@ const mb = new menubar({
   'always-on-top': true,
   resizable: false,
   width: 250,
-  height: 260,
+  height: 250,
   preloadWindow: true,
   icon: path.join(__dirname, './app/assets/images/app.png')
 })

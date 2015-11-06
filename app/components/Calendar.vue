@@ -4,8 +4,8 @@
     #month
       #date(@click="backToToday") {{ formatMonth }} {{ year }}
       #action
-        a.action(href="javascript:void(0)", @click="prev") <  
-        a.action(href="javascript:void(0)", @click="next") > 
+        .action(href="javascript:void(0)", @click="prev", style="transform: rotate(180deg)") ➔
+        .action(href="javascript:void(0)", @click="next") ➔
       
     #week
       .grid(v-for="i in 7") {{ weeks[i] }}
@@ -24,7 +24,8 @@
     data(){
       return {
         today: moment().format('YYYY-MM-DD'),
-        weeks: ['日', '一', '二', '三', '四', '五', '六']      
+        // weeks: ['日', '一', '二', '三', '四', '五', '六']
+        weeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
       }
     },
 
@@ -117,6 +118,7 @@
     left: 0;
     bottom: 0;
     right: 0;
+
     .grid{
       display: inline-block;
       width: 14.28%;
@@ -128,8 +130,8 @@
         color: #777;
         font-size: .9em;
         box-sizing: border-box;
-        padding-top: .8em;
-        padding-bottom: .8em;
+        padding-top: .7em;
+        padding-bottom: .7em;
 
         &.last{
           background-color: #F5F5F5;
@@ -148,19 +150,30 @@
 
     #head{
       width: 100%;
-      height: 52px;
+      height: 55px;
       background: linear-gradient(to bottom, #7BBFE0, #75ABDD);
 
       #month{
         text-align: center;
         color: #fff;
-        padding-top: .5em;
-        padding-bottom: .5aem;
+        padding-top: .8em;
+        #date{
+          font-size: 1.1em;
+        }
 
         #action{
           position: absolute;
-          top: .5em;
+          top: .8em;
           right: .5em;
+          font-weight: 800;
+          .action{
+            color: #E3EFF9;
+            margin-right: .8em;
+            display: inline-block;
+            &:hover{
+              color: #fff;
+            };
+          }
         }
 
         #date{
@@ -170,11 +183,12 @@
       }
 
       #week{
-        margin-top: 1em;
+        margin-top: .6em;
         width: 100%;
         padding-top: .45em;
-        padding-bottom: .45em;
-        font-size: .6em;
+        margin-bottom: .2em;
+        /*padding-bottom: .45em;*/
+        font-size: .75em;
         color: #fff;
       }
 
