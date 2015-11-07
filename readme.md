@@ -10,6 +10,10 @@ iCultus is an alternative menubar calendar for OS X. It's based on [Electron](ht
 
 # Install
 
+```bash
+$ brew cask install icultus
+```
+
 [Download](https://github.com/djyde/iCultus/releases)
 
 # Build
