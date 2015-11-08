@@ -2,7 +2,7 @@
 
 http://djyde.github.io/iCultus/
 
-iCultus is an alternative menubar calendar for OS X. It's based on [Electron](http://electron.atom.io) and [Vue.js](http://vuejs.org). It's not `function integrity` app yet. But it will.
+iCultus is an alternative menubar calendar for OS X. It's based on [Electron](http://electron.atom.io) and [Vue.js](http://vuejs.org).
 
 # Screenshot
 
