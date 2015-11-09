@@ -4,10 +4,9 @@
   #pannel
     .field
       label Menubar display:
-      p Support 
+      input(type="text", v-model="trayDateFormat", placeholder="Empty for only display icon")
+      p * Support 
         a(href="javascript:void(0)", @click="visit('http://momentjs.com/docs/#/parsing/string-format/')") moment.js format 
-      p Leave empty for displaying nothing but icon.
-      input(type="text", v-model="trayDateFormat")
       
     .center
       a.center.btn.primary(href="javascript:void(0)", @click="save") Save
@@ -16,23 +15,37 @@
 
 <script>
 
+import moment from 'moment'
+
 const shell = window.remote.require('shell')
 const app = window.remote.require('app')
+const mb = window.remote.require('./').mb
+
 export default {
   data(){
     return {
       app,
-      trayDateFormat: localStorage.getItem('trayDateFormat') || 'ddd HH:mm'
+      trayDateFormat: localStorage.getItem('trayDateFormat') === null ? 'ddd HH:mm' : ''
     }
   },
 
   methods: {
-    save(){
+    back(){
+      this.$parent.view = 'Calendar'
+    },
 
+    save(){
+      localStorage.setItem('trayDateFormat', this.trayDateFormat)
+      if (this.trayDateFormat) {
+        mb.tray.setTitle(moment().format(this.trayDateFormat))
+      } else {
+        mb.tray.setTitle('')
+      }
+      this.back()
     },
 
     cancel(){
-      this.$parent.view = 'Calendar'
+      this.back()
     },
 
     visit(url){
@@ -55,7 +68,7 @@ export default {
 
   #title{
     font-size: 1em;
-    padding-bottom: .6em;
+    padding-bottom: 1em;
   }
 
   .field{

@@ -27,6 +27,8 @@
   let app = window.remote.require('app')
   
   moment.locale(app.getLocale())
+  // moment.locale('en-US')
+
 
   export default {
     data(){
@@ -38,10 +40,6 @@
     },
 
     computed: {
-      fullTime(){
-        return moment(this.today).format('ddd HH:mm')
-      },
-
       formatMonth(){
         return moment(this.today).format('MMM')
       },
@@ -90,8 +88,9 @@
     },
 
     methods: {
+
       initTray(){
-        mb.tray.setTitle(moment().format('ddd HH:mm'))
+        mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? moment().format('ddd HH:mm') : '')
       },
 
       prev(){
@@ -122,8 +121,13 @@
         this.backToToday()
       })
       setInterval( () => {
-        mb.tray.setTitle(moment().format('ddd HH:mm'))
-      }, 10000)
+        if (this.getTrayDateFormat === '') {
+          mb.tray.setTitle('')
+        } else {
+          mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? moment().format('ddd HH:mm') : '')
+        }
+        
+      }, 800)
     }
   }
 </script>
@@ -175,7 +179,7 @@
       #month{
         text-align: center;
         color: #fff;
-        padding-top: .8rem;
+        padding-top: .7em;
         #date{
           font-size: 1.1em;
         }
