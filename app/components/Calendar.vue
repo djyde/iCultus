@@ -1,15 +1,14 @@
 <template lang="jade">
 #calendar
   #head
-    #month
-      #date(@click="backToToday") {{ formatMonth }} {{ year }}
-      #calendar-app.tool
-        img(src="../assets/images/calendar.png", @click="launchCalendar")
-      #settings.tool
-        img(src="../assets/images/settings.png", @click="launchSettings")
-      #action
-        .action(href="javascript:void(0)", @click="prev", style="transform: rotate(180deg)") ➔
-        .action(href="javascript:void(0)", @click="next") ➔
+    #date(@click="backToToday") {{ formatMonth }} {{ year }}
+    #calendar-app.tool
+      img(src="../assets/images/calendar.png", @click="launchCalendar")
+    #settings.tool
+      img(src="../assets/images/settings.png", @click="launchSettings")
+    #action
+      .action(href="javascript:void(0)", @click="prev", style="transform: rotate(180deg)") ➔
+      .action(href="javascript:void(0)", @click="next") ➔
       
     #week
       .grid(v-for="i in 7") {{ weeks[i] }}
@@ -90,7 +89,10 @@
     methods: {
 
       initTray(){
-        mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? moment().format('ddd HH:mm') : '')
+        if (localStorage.getItem('trayDateFormat') === '') {
+        } else {
+          mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? moment().format('ddd HH:mm') : moment().format(localStorage.getItem('trayDateFormat')))
+        }
       },
 
       prev(){
@@ -121,10 +123,9 @@
         this.backToToday()
       })
       setInterval( () => {
-        if (this.getTrayDateFormat === '') {
-          mb.tray.setTitle('')
+        if (localStorage.getItem('trayDateFormat') === '') {
         } else {
-          mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? moment().format('ddd HH:mm') : '')
+          mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? moment().format('ddd HH:mm') : moment().format(localStorage.getItem('trayDateFormat')))
         }
         
       }, 800)
@@ -173,50 +174,48 @@
 
     #head{
       width: 100%;
-      height: 55px;
+      height: 45px;
       background: linear-gradient(to bottom, #7BBFE0, #75ABDD);
       position: relative;
-      #month{
-        text-align: center;
-        color: #fff;
-        padding-top: .7em;
-        #date{
-          font-size: 1.1em;
+      text-align: center;
+      color: #fff;
+      padding-top: .7em;
+      #date{
+        font-size: 1.1em;
+      }
+
+      .tool{
+        position: absolute;
+        top: 1em;
+
+        &#calendar-app{
+          left: .8em;
         }
 
-        .tool{
-          position: absolute;
-          top: .8em;
-
-          &#calendar-app{
-            left: .8em;
-          }
-
-          &#settings{
-            left: 3.2em;
-          }
+        &#settings{
+          left: 3.2em;
         }
+      }
 
-        #action{
-          position: absolute;
-          top: .8em;
-          right: .5em;
-          font-weight: 800;
-          .action{
-            color: #E3EFF9;
-            margin-right: .8em;
-            display: inline-block;
-            &:hover{
-              color: #fff;
-            };
-          }
-        }
-
-        #date{
-          font-size: 1.1em;
+      #action{
+        position: absolute;
+        top: 1em;
+        right: .5em;
+        font-weight: 800;
+        .action{
+          color: #E3EFF9;
+          margin-right: .8em;
           display: inline-block;
-          cursor: pointer;
+          &:hover{
+            color: #fff;
+          };
         }
+      }
+
+      #date{
+        font-size: 1.1em;
+        display: inline-block;
+        cursor: pointer;
       }
 
       #week{

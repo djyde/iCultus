@@ -25,7 +25,7 @@ export default {
   data(){
     return {
       app,
-      trayDateFormat: localStorage.getItem('trayDateFormat') === null ? 'ddd HH:mm' : ''
+      trayDateFormat: localStorage.getItem('trayDateFormat')
     }
   },
 
@@ -36,10 +36,10 @@ export default {
 
     save(){
       localStorage.setItem('trayDateFormat', this.trayDateFormat)
-      if (this.trayDateFormat) {
-        mb.tray.setTitle(moment().format(this.trayDateFormat))
-      } else {
+      if (!this.trayDateFormat) {
         mb.tray.setTitle('')
+      } else {
+        mb.tray.setTitle(moment().format(this.trayDateFormat))
       }
       this.back()
     },
