@@ -88,10 +88,10 @@
 
     methods: {
 
-      initTray(){
+      tick(){
         if (localStorage.getItem('trayDateFormat') === '') {
         } else {
-          mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? moment().format('ddd HH:mm') : moment().format(localStorage.getItem('trayDateFormat')))
+          mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? '' : moment().format(localStorage.getItem('trayDateFormat')))
         }
       },
 
@@ -118,16 +118,12 @@
     },
 
     ready(){
-      this.initTray()
+      this.tick()
       mb.on('show', () => {
         this.backToToday()
       })
       setInterval( () => {
-        if (localStorage.getItem('trayDateFormat') === '') {
-        } else {
-          mb.tray.setTitle(localStorage.getItem('trayDateFormat') === null ? '' : moment().format(localStorage.getItem('trayDateFormat')))
-        }
-        
+        this.tick()
       }, 800)
     }
   }

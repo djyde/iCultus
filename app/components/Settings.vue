@@ -25,7 +25,7 @@ export default {
   data(){
     return {
       app,
-      trayDateFormat: localStorage.getItem('trayDateFormat')
+      trayDateFormat: localStorage.getItem('trayDateFormat') || ''
     }
   },
 
