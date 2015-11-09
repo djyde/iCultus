@@ -83,7 +83,7 @@ export default {
       line-height: .5em;
     }
 
-    input[type="text"]{
+    input{
       border-radius: 4px;
       border: 1px solid #bdbdbd;
       width: 100%;
