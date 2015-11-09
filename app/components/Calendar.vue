@@ -3,8 +3,10 @@
   #head
     #month
       #date(@click="backToToday") {{ formatMonth }} {{ year }}
-      #calendar-app
+      #calendar-app.tool
         img(src="../assets/images/calendar.png", @click="launchCalendar")
+      #settings.tool
+        img(src="../assets/images/settings.png", @click="launchSettings")
       #action
         .action(href="javascript:void(0)", @click="prev", style="transform: rotate(180deg)") ➔
         .action(href="javascript:void(0)", @click="next") ➔
@@ -106,6 +108,10 @@
 
       launchCalendar(){
         shell.openItem('/Applications/Calendar.app')
+      },
+
+      launchSettings(){
+        this.$parent.view = 'Settings'
       }
 
     },
@@ -174,10 +180,17 @@
           font-size: 1.1em;
         }
 
-        #calendar-app{
+        .tool{
           position: absolute;
           top: .8em;
-          left: .8em;
+
+          &#calendar-app{
+            left: .8em;
+          }
+
+          &#settings{
+            left: 3.2em;
+          }
         }
 
         #action{
