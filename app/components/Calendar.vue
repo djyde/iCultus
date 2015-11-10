@@ -129,7 +129,7 @@
       let menu = new Menu()
       let cultus = this
       menu.append(new MenuItem({
-        label: 'Preference',
+        label: 'Preferences',
         click(){
           cultus.$parent.view = 'Preference'
         }

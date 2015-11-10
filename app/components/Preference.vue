@@ -3,7 +3,7 @@
   #title.center {{ app.getName() }} {{ app.getVersion() }}
   #pannel
     .field
-      label Menubar display:
+      label Menubar title:
       input(type="text", v-model="trayDateFormat", placeholder="Empty for only display icon")
       p * Support 
         a(href="javascript:void(0)", @click="visit('http://momentjs.com/docs/#/parsing/string-format/')") moment.js format 
