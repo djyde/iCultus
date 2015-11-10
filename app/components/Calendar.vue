@@ -13,7 +13,7 @@
     .grid.square(v-for="i in daysOfMonth", :class="{ current: day === i + 1 && isCurrentDay }") {{ i + 1 }}
     .grid.square.next(v-for="i in nextMonthRestDays") {{ i + 1 }}
   #tool-bar
-    #settings.tool &#9776;
+    #menu.tool(@click="popUpMenu") &#9776;
     #calendar-app.tool 
       img(src="../assets/images/calendar.png", @click="launchCalendar")
 </template>
@@ -24,7 +24,9 @@
   let mb = window.remote.require('./').mb
   let shell = window.remote.require('shell')
   let app = window.remote.require('app')
-  
+  let Menu = window.remote.require('menu')
+  let MenuItem = window.remote.require('menu-item')
+
   moment.locale(app.getLocale())
   // moment.locale('en-US')
 
@@ -33,7 +35,7 @@
     data(){
       return {
         today: moment().format('YYYY-MM-DD'),
-        // weeks: ['日', '一', '二', '三', '四', '五', '六']
+        menu: '',
         weeks: moment.weekdaysShort()
       }
     },
@@ -113,11 +115,36 @@
 
       launchSettings(){
         this.$parent.view = 'Settings'
+      },
+
+      popUpMenu(){
+        this.menu.popup(window.remote.getCurrentWindow())
       }
 
     },
 
     ready(){
+
+      // menu
+      let menu = new Menu()
+      let cultus = this
+      menu.append(new MenuItem({
+        label: 'Preference',
+        click(){
+          cultus.$parent.view = 'Preference'
+        }
+      }))
+      menu.append(new MenuItem({ type: 'separator' }));
+      menu.append(new MenuItem({
+        label: 'Quit',
+        click(){
+          app.quit()
+        }
+      }))
+
+      this.menu = menu
+
+      // initial time
       this.tick()
       mb.on('show', () => {
         this.backToToday()
@@ -235,7 +262,7 @@
           }
         }
 
-        &#settings{
+        &#menu{
           color: #E3EFF9;
           margin-left: 1em;
           margin-right: .5em;
