@@ -1,6 +1,6 @@
 {
   "name": "iCultus",
-  "version": "1.1.0-rc2",
+  "version": "1.1.0",
   "description": "An alternative menubar calendar for OS X",
   "main": "index.js",
   "dependencies": {},
