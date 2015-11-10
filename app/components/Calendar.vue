@@ -2,10 +2,6 @@
 #calendar
   #head
     #date(@click="backToToday") {{ formatMonth }} {{ year }}
-    #calendar-app.tool
-      img(src="../assets/images/calendar.png", @click="launchCalendar")
-    #settings.tool
-      img(src="../assets/images/settings.png", @click="launchSettings")
     #action
       .action(href="javascript:void(0)", @click="prev", style="transform: rotate(180deg)") ➔
       .action(href="javascript:void(0)", @click="next") ➔
@@ -16,6 +12,10 @@
     .grid.square.last(v-for="i in lastMonthRestDays") {{ lastMonthLastDayNumber - ( lastMonthRestDays - 1 - i) }}
     .grid.square(v-for="i in daysOfMonth", :class="{ current: day === i + 1 && isCurrentDay }") {{ i + 1 }}
     .grid.square.next(v-for="i in nextMonthRestDays") {{ i + 1 }}
+  #tool-bar
+    #settings.tool &#9776;
+    #calendar-app.tool 
+      img(src="../assets/images/calendar.png", @click="launchCalendar")
 </template>
 
 <script>
@@ -180,19 +180,6 @@
         font-size: 1.1em;
       }
 
-      .tool{
-        position: absolute;
-        top: 1em;
-
-        &#calendar-app{
-          left: .8em;
-        }
-
-        &#settings{
-          left: 3.2em;
-        }
-      }
-
       #action{
         position: absolute;
         top: 1em;
@@ -228,9 +215,36 @@
     }
 
     #day{
-        box-sizing: border-box;
-        padding: .2em;
-        padding-bottom: 0;
+      box-sizing: border-box;
+      padding: .2em;
+      padding-bottom: 0;
+    }
+
+    #tool-bar{
+      background: linear-gradient(to bottom, #7BBFE0, #75ABDD);
+      overflow: hidden;
+      padding: .35em;
+      .tool{
+        display: inline-block;
+        float: right;
+        /*padding: .4em;*/
+        &#calendar-app{
+          left: .8em;
+          img{
+            padding: .1em;
+          }
+        }
+
+        &#settings{
+          color: #E3EFF9;
+          margin-left: 1em;
+          margin-right: .5em;
+
+          &:hover{
+            color: #fff;
+          }
+        }
       }
+    }
   }
 </style>
