@@ -25,7 +25,7 @@ gulp.task('electron', () => {
           CFBundleIdentifier: packageJson.name,
           CFBundleName: packageJson.name,
           CFBundleVersion: packageJson.version,
-          icon: './app/assets/images/appIcon.icns'
+          icon: './appIcon.icns'
         }
       }
     }))
