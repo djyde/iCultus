@@ -1,5 +1,7 @@
 # iCultus
 
+[![](https://img.shields.io/github/downloads/djyde/iCultus/total.svg)](https://github.com/djyde/iCultus/releases)
+
 http://djyde.github.io/iCultus/
 
 iCultus is an alternative menubar calendar for OS X. It's based on [Electron](http://electron.atom.io) and [Vue.js](http://vuejs.org).
