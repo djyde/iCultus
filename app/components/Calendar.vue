@@ -72,7 +72,8 @@
 
       lastMonthRestDays(){
         let todayInstance = moment(moment(this.today))
-        return todayInstance.month(this.lastMonth).endOf('month').day() === 6 ? 0 : todayInstance.month(this.lastMonth).endOf('month').day() + 1
+        let lastDayOfLastMonth = todayInstance.month(this.lastMonth).endOf('month').day()
+        return lastDayOfLastMonth === 6 ? 0 : lastDayOfLastMonth + 1
       },
 
       daysOfMonth(){
